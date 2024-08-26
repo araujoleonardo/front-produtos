@@ -1,33 +1,27 @@
-# front-produtos
-
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Start Projeto
 
 ```sh
-npm install
+docker compose up -d
 ```
 
-### Compile and Hot-Reload for Development
+### Acessar em:
 
 ```sh
-npm run dev
+http://localhost:5173/
 ```
 
-### Type-Check, Compile and Minify for Production
+### Usuario cadastrado apos rodar seed na api
 
 ```sh
-npm run build
+email: admin@teste.com
+senha: admin123
 ```
+
+## Pacotes usados
+
+- Vue 3
+- Composition API
+- Tailwind CSS 3: Gosto deste pacote pela facil integração com o vue (Tambem uso o bootstrap).
+- Fortawesome 6: Pacote para icones
+- Element UI: Biblioteca para componetes Vue prontos
+- Pinia: Gerenciar Storage e estados.
