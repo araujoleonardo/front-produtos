@@ -15,6 +15,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
+import VueTheMask from 'vue-the-mask';
 import './index.css'
 
 // Set up FontAwesome icons library
@@ -27,6 +28,7 @@ app.use(router)
 app.use(NProgress);
 app.use(ElementPlus);
 app.use(money);
+app.use(VueTheMask);
 app.component('font-awesome-icon', FontAwesomeIcon);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)

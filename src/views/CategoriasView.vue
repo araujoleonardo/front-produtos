@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CategoryTableComponent from "@/components/Category/CategoryTableComponent.vue";
 </script>
 
 <template>
@@ -8,7 +9,7 @@
     </div>
   </header>
   <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-    Categorias
+    <CategoryTableComponent/>
   </main>
 </template>
 
