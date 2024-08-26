@@ -38,7 +38,7 @@
             v-model="form.price"
             type="text"
             size="large"
-            v-mask="['R$ ##,##', 'R$ ###,##', 'R$ ###.###,##']"
+            v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##', 'R$ #.###,##', 'R$ ##.###,##', 'R$ ###.###,##']"
             placeholder="R$ 00,00"
         />
         <InputError class="mt-1" v-if="validate.price" :message="validate.price[0]" />
@@ -46,14 +46,14 @@
 
       <el-form-item label="Validade" class="font-medium text-sm text-gray-800">
         <el-input
-            id="expire_date"
-            v-model="form.expire_date"
+            id="expiry_date"
+            v-model="form.expiry_date"
             v-mask="['##/##/####']"
             placeholder="99/99/9999"
             type="text"
             size="large"
         />
-        <InputError class="mt-1" v-if="validate.expire_date" :message="validate.expire_date[0]" />
+        <InputError class="mt-1" v-if="validate.expiry_date" :message="validate.expiry_date[0]" />
       </el-form-item>
 
       <el-form-item label="Imagem" class="font-medium text-sm text-gray-800">
@@ -107,6 +107,7 @@
               :value="item.id"
           />
         </el-select>
+        <InputError class="mt-1" v-if="validate.category_id" :message="validate.category_id[0]" />
       </el-form-item>
 
 
@@ -268,7 +269,7 @@ watch(() => props.visible,
         form.expiry_date = props.product.expiry_date
         form.image = props.product.image
         imageUrl.value = props.product.image_url
-        form.category_id = props.product.category ? props.product.category.id : null
+        form.category_id = props.product.category?.id
       }
     }
   }

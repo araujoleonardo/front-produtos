@@ -32,11 +32,29 @@
       </template>
 
       <el-table :data="dataSet.data" v-loading="loading" style="width: 100%" border>
+        <el-table-column width="60" align="center">
+          <template #header>
+            <font-awesome-icon :icon="['far', 'image']" />
+          </template>
+          <template #default="scope">
+            <el-avatar shape="square"
+                       :size="35"
+                       :src="scope.row.image_url"
+            />
+          </template>
+        </el-table-column>
         <el-table-column label="Produto" prop="name" sortable/>
         <el-table-column label="Descrição" prop="description" sortable/>
-        <el-table-column label="Preço" prop="description" sortable/>
+        <el-table-column label="Preço" prop="price" sortable/>
         <el-table-column label="Validade" prop="expiry_date" sortable/>
-        <el-table-column width="130" label="Criado em" prop="created_at" sortable/>
+        <el-table-column align="center">
+          <template #header>
+            Categoria
+          </template>
+          <template #default="scope">
+            {{scope.row.category.name}}
+          </template>
+        </el-table-column>
         <el-table-column width="100" align="center">
           <template #header>
             Ações
@@ -127,6 +145,7 @@
       }
     }).then((response) => {
       dataSet = response.data.product;
+      //console.log(dataSet)
     }).catch((error) => {
       ElNotification.error({
         title: 'Erro',
