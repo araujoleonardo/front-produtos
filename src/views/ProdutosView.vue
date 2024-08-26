@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ProductTableComponent from "@/components/Product/ProductTableComponent.vue";
 </script>
 
 <template>
@@ -8,7 +9,7 @@
     </div>
   </header>
   <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-    Produtos
+    <ProductTableComponent/>
   </main>
 </template>
 
