@@ -2,9 +2,7 @@
 import {reactive, ref} from "vue";
 import {ElNotification} from "element-plus";
 import {useRouter} from "vue-router";
-import axios from "axios";
-
-axios.defaults.withCredentials = true;
+import api from "@/plugins/axios";
 
 const router = useRouter();
 
@@ -23,8 +21,8 @@ const form: FormData = reactive<FormData>({
 async function login() {
   loading.value = true;
 
-  axios.get("http://localhost/sanctum/csrf-cookie").then((response) => {
-    axios.post("http://localhost/api/login", form).then((response) => {
+  api.get("/sanctum/csrf-cookie").then((response) => {
+    api.post("/api/login", form).then((response) => {
       console.log('login', response.data)
       //auth.setToken(response.data.token);
       //auth.setUser(response.data.user);
@@ -33,7 +31,7 @@ async function login() {
         message: 'Login feito com sucesso!',
         offset: 50,
       });
-      //router.push({name: 'home'});
+      router.push({name: 'home'});
     }).catch((error) => {
       ElNotification.error({
         title: 'Erro',
@@ -50,11 +48,7 @@ async function login() {
 
 <template>
   <div v-loading="loading" class="flex min-h-full flex-col justify-center px-10 py-20 lg:px-12">
-    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
-    </div>
-
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div class="mt-12 sm:mx-auto sm:w-full sm:max-w-sm">
       <el-form
           ref="ruleFormRef"
           v-model="form"
