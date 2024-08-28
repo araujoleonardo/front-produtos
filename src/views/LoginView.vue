@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import {reactive, ref} from "vue";
 import {ElNotification} from "element-plus";
-import api from "@/plugins/axios";
-import {useAuthStore} from "@/stores/auth";
 import {useRouter} from "vue-router";
+import axios from "axios";
 
-const auth = useAuthStore();
+axios.defaults.withCredentials = true;
+
 const router = useRouter();
 
-const urlSubmit = ref<String>('/login');
 const loading = ref<Boolean>(false);
 
 interface FormData {
@@ -21,27 +20,29 @@ const form: FormData = reactive<FormData>({
   password: ''
 });
 
-const submit = () => {
+async function login() {
   loading.value = true;
 
-  api.post(urlSubmit.value, form).then((response) => {
-    //console.log(response.data)
-    auth.setToken(response.data.token);
-    auth.setUser(response.data.user);
-    ElNotification.success({
-      title: 'Success',
-      message: 'Login feito com sucesso!',
-      offset: 50,
+  axios.get("http://localhost/sanctum/csrf-cookie").then((response) => {
+    axios.post("http://localhost/api/login", form).then((response) => {
+      console.log('login', response.data)
+      //auth.setToken(response.data.token);
+      //auth.setUser(response.data.user);
+      ElNotification.success({
+        title: 'Success',
+        message: 'Login feito com sucesso!',
+        offset: 50,
+      });
+      //router.push({name: 'home'});
+    }).catch((error) => {
+      ElNotification.error({
+        title: 'Erro',
+        message: 'Usuário ou senha inválidos!',
+        offset: 50,
+      });
+    }).finally(() => {
+      loading.value = false;
     });
-    router.push({name: 'home'});
-  }).catch((error) => {
-    ElNotification.error({
-      title: 'Erro',
-      message: 'Usuário ou senha inválidos!',
-      offset: 50,
-    });
-  }).finally(() => {
-    loading.value = false;
   });
 }
 
@@ -89,7 +90,7 @@ const submit = () => {
         </div>
 
         <div class="mt-6">
-          <button type="submit" @click.prevent="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+          <button type="submit" @click.prevent="login" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
         </div>
       </el-form>
     </div>
